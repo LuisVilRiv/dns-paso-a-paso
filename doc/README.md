@@ -285,3 +285,61 @@ debian.luis.test: 192.168.56.33                             -- link: vboxnet0
 -- Data from: cache
 ```
 
+
+## 6. Comprobación con dig
+
+Consulta directa al servidor (`@192.168.56.33`) desde el anfitrión. Se espera `status: NOERROR`, flag `aa` y la respuesta `192.168.56.33`:
+
+```console
+$ dig @192.168.56.33 debian.luis.test
+
+; <<>> DiG 9.18.50 <<>> @192.168.56.33 debian.luis.test
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 11155
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: e40e970b672f4027010000006ad2432ad6e661674e94ed70 (good)
+;; QUESTION SECTION:
+;debian.luis.test.		IN	A
+
+;; ANSWER SECTION:
+debian.luis.test.	86400	IN	A	192.168.56.33
+
+;; Query time: 0 msec
+;; SERVER: 192.168.56.33#53(192.168.56.33) (UDP)
+;; WHEN: Fri Oct 16 17:30:50 CEST 2026
+;; MSG SIZE  rcvd: 89
+
+```
+
+```console
+$ dig @192.168.56.33 -x 192.168.56.33
+
+; <<>> DiG 9.18.50 <<>> @192.168.56.33 -x 192.168.56.33
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 11677
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: ee618f1dfbe04b83010000006ad2432a47d92b82dbac7e86 (good)
+;; QUESTION SECTION:
+;33.56.168.192.in-addr.arpa.	IN	PTR
+
+;; ANSWER SECTION:
+33.56.168.192.in-addr.arpa. 86400 IN	PTR	debian.luis.test.
+
+;; Query time: 0 msec
+;; SERVER: 192.168.56.33#53(192.168.56.33) (UDP)
+;; WHEN: Fri Oct 16 17:30:50 CEST 2026
+;; MSG SIZE  rcvd: 113
+
+```
+
+![dig](img/04-dig.png)
