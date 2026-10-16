@@ -363,3 +363,24 @@ $ nslookup 192.168.56.33 192.168.56.33
 ```
 
 ![nslookup](img/05-nslookup.png)
+
+## 8. Tareas de ampliación
+
+### 8.1 Registro CNAME (alias)
+
+Añadido a `files/luis.test.dns`: `web IN CNAME debian.luis.test.` (y serial incrementado a `2026101602`, necesario cada vez que se modifica una zona).
+
+```console
+$ dig @192.168.56.33 web.luis.test CNAME +short
+debian.luis.test.
+```
+
+```console
+$ nslookup -type=cname web.luis.test 192.168.56.33
+Server:		192.168.56.33
+Address:	192.168.56.33#53
+
+web.luis.test	canonical name = debian.luis.test.
+
+```
+
