@@ -61,3 +61,18 @@ eth0             UP             10.0.2.15/24
 eth1             UP             192.168.56.33/24 
 ```
 
+
+## 3. Instalación de Bind9
+
+Paquetes oficiales de Debian, instalados en `config/01-instalar-bind.sh`:
+`bind9` (servidor), `bind9utils` (`named-checkconf`, `named-checkzone`), `bind9-doc` y `bind9-dnsutils` (`dig`, `nslookup`).
+
+```console
+$ vagrant ssh -c "dpkg -l bind9 bind9utils bind9-doc bind9-dnsutils | grep ^ii; systemctl is-active named" -- -q
+ii  bind9          1:9.18.49-1~deb12u2 amd64        Internet Domain Name Server
+ii  bind9-dnsutils 1:9.18.49-1~deb12u2 amd64        Clients provided with BIND 9
+ii  bind9-doc      1:9.18.49-1~deb12u2 all          Documentation for BIND 9
+ii  bind9utils     1:9.18.49-1~deb12u2 all          Transitional package for bind9-utils
+active
+```
+

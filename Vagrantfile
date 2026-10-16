@@ -19,4 +19,5 @@ Vagrant.configure("2") do |config|
   end
 
   # Provisión: los scripts de config/ se ejecutan en orden (se añaden fase a fase)
+  config.vm.provision "shell", path: "config/01-instalar-bind.sh"
 end
