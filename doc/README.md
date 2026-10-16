@@ -517,3 +517,43 @@ debian.luis.test.
 ;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
 ```
 
+
+## 10. Despliegue desde cero y entrega
+
+Para comprobar que la práctica se despliega sola, se destruye la VM y se vuelve a crear:
+
+```bash
+git clone git@github.com:LuisVilRiv/dns-paso-a-paso.git
+cd dns-paso-a-paso
+vagrant up      # instala Bind9, copia la configuración y ejecuta test.sh al final
+```
+
+![vagrant up desde cero](img/08-vagrant-up-final.png)
+
+### Control de versiones
+
+Historial de commits del proyecto:
+
+```console
+$ git log --oneline
+02b2bcf Añade test.sh y lo ejecuta en la última provisión de Vagrant
+f501450 Añade test.sh y lo ejecuta en la última provisión de Vagrant
+0df72f1 Ampliación: comprobación del flag aa (autoridad)
+ff45190 Ampliación: comprobación de la resolución inversa PTR
+47b2c2d Ampliación: registro TXT en la raíz de la zona
+6955a41 Ampliación: alias web.luis.test (CNAME)
+e807a1b Documenta comprobación con nslookup
+0b7f7ef Documenta comprobación con dig (resolución directa e inversa)
+57f6841 Documenta la configuración del cliente (Fedora) para usar el servidor DNS
+9394046 Documenta la comprobación de zonas con named-checkzone
+ee4acf3 Añade zona de resolución inversa 56.168.192.in-addr.arpa
+0ab1e38 Añade zona directa luis.test y named.conf.local
+38d8561 Configura named.conf.options: ACL, recursión y escucha en 192.168.56.33
+10f1c08 Configura named.conf.options: ACL, recursión y escucha en 192.168.56.33
+eb44bf7 Configura named solo con IPv4 y crea script de configuración 02
+9742b6e Provisión: instalación de bind9, bind9utils, bind9-doc y dnsutils
+5b2d926 Añade Vagrantfile con Debian 12 y red privada 192.168.56.33
+f66cec1 Crea estructura de carpetas y documentación inicial con teoría DNS
+a2ae757 Añade README.md y .gitignore
+```
+
