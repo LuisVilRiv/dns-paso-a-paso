@@ -1,0 +1,13 @@
+;
+; Zona directa luis.test
+;
+$TTL    86400
+@   IN  SOA debian.luis.test. admin.luis.test. (
+            2026101601  ; Serial (AñoMesDíaVersión)
+            3600        ; Refresh
+            1800        ; Retry
+            604800      ; Expire
+            86400 )     ; Negative Cache TTL
+;
+@                   IN  NS  debian.luis.test.
+debian.luis.test.   IN  A   192.168.56.33

@@ -1,0 +1,7 @@
+// /etc/bind/named.conf.local - Práctica DNS (Luis Villegas Rivera)
+
+// Zona de resolución DIRECTA (nombre -> IP). Este servidor es el maestro.
+zone "luis.test" {
+    type master;
+    file "/var/lib/bind/luis.test.dns";
+};

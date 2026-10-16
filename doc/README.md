@@ -146,3 +146,17 @@ UNCONN 0      0      192.168.56.33:53        0.0.0.0:*    users:(("named",pid=51
 UNCONN 0      0          127.0.0.1:53        0.0.0.0:*    users:(("named",pid=5189,fd=16))  
 ```
 
+
+### 4.2 `named.conf.local` y zona directa
+
+Declaramos que el servidor es **maestro** de `luis.test` (`files/named.conf.local`) y creamos su fichero de zona (`files/luis.test.dns`):
+
+- `SOA`: datos de la zona (servidor primario `debian.luis.test.`, contacto `admin.luis.test.`, serial `AAAAMMDDNN`).
+- `NS`: el servidor de nombres de la zona.
+- `A`: IP de `debian.luis.test.` → `192.168.56.33`.
+
+```text
+files/named.conf.local  ->  /etc/bind/named.conf.local
+files/luis.test.dns     ->  /var/lib/bind/luis.test.dns
+```
+
