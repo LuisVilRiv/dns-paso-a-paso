@@ -1,0 +1,28 @@
+// /etc/bind/named.conf.options - Práctica DNS (Luis Villegas Rivera)
+
+// Lista de acceso: SOLO estos hosts pueden hacer consultas recursivas
+acl confiables {
+    127.0.0.1;          // el propio servidor
+    192.168.56.0/24;    // red privada de la práctica
+};
+
+options {
+    directory "/var/cache/bind";    // (1) directorio de caché de Bind
+
+    // forwarders {
+    //     0.0.0.0;
+    // };
+
+    allow-transfer { none; };       // (2) nadie puede transferir zonas, de momento
+
+    // (3) escuchar en el puerto 53 solo en localhost y en la IP de la red privada
+    listen-on port 53 { 127.0.0.1; 192.168.56.33; };
+
+    recursion yes;                  // (4) permitir consultas recursivas...
+    allow-recursion { confiables; };// (5) ...pero solo a los hosts de la ACL
+
+    // (6) validación DNSSEC. "auto" = activada con la clave raíz incluida en Bind (valor por defecto de Debian)
+    dnssec-validation auto;
+
+    // listen-on-v6 { any; };       // (7) comentada: no respondemos por IPv6
+};

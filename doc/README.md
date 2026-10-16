@@ -94,3 +94,29 @@ OPTIONS="-u bind -4"
 bash -l -c cat /etc/default/named; ps -eo args | grep [n]amed
 ```
 
+
+### 4.1 `named.conf.options`
+
+Fichero `files/named.conf.options`. Antes de sobrescribirlo, el script guarda una **copia de seguridad** (`named.conf.options.backup`).
+
+| Nº | Directiva | Función |
+|---|---|---|
+| 1 | `directory "/var/cache/bind"` | Directorio de caché |
+| 2 | `allow-transfer { none; }` | Sin transferencias de zona |
+| 3 | `listen-on port 53 {127.0.0.1; 192.168.56.33;}` | Escucha solo en localhost y en la IP privada |
+| 4 | `recursion yes` | Permite recursión... |
+| 5 | `allow-recursion { confiables; }` | ...solo a la ACL `confiables` (`127.0.0.1` y `192.168.56.0/24`) |
+| 6 | `dnssec-validation auto` | Validación DNSSEC con la clave raíz integrada (por defecto en Debian) |
+| 7 | `// listen-on-v6` | IPv6 desactivado |
+
+Comprobación de sintaxis, estado del servicio y puertos en escucha:
+
+![estado de named](img/02-named-status.png)
+
+```console
+$ vagrant ssh -c "sudo named-checkconf /etc/bind/named.conf.options && echo OK-sintaxis; sudo ss -lnup | grep :53" -- -q
+OK-sintaxis
+UNCONN 0      0      192.168.56.33:53        0.0.0.0:*    users:(("named",pid=5189,fd=19))  
+UNCONN 0      0          127.0.0.1:53        0.0.0.0:*    users:(("named",pid=5189,fd=16))  
+```
+
