@@ -384,3 +384,22 @@ web.luis.test	canonical name = debian.luis.test.
 
 ```
 
+
+### 8.2 Registro TXT
+
+Registro descriptivo en la raíz de la zona con mi usuario de GitHub y nombre (serial `2026101603`):
+
+```console
+$ dig @192.168.56.33 luis.test TXT +short
+"LuisVilRiv - Luis Villegas Rivera"
+```
+
+```console
+$ nslookup -type=txt luis.test 192.168.56.33
+Server:		192.168.56.33
+Address:	192.168.56.33#53
+
+luis.test	text = "LuisVilRiv - Luis Villegas Rivera"
+
+```
+
