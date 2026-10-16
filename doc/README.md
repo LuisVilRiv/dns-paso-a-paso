@@ -166,3 +166,83 @@ files/luis.test.dns     ->  /var/lib/bind/luis.test.dns
 Segunda zona en `named.conf.local` (`56.168.192.in-addr.arpa`, el tercer byte de la red va en el nombre) y su fichero `files/luis.test.rev`.
 El registro `33 IN PTR debian.luis.test.` usa el **último octeto** de la IP del servidor.
 
+
+### 4.4 Comprobación de las configuraciones
+
+Debe devolver `OK` en ambas zonas, y el log de `named` debe mostrar que cargó las dos:
+
+```console
+$ vagrant ssh -c "sudo named-checkzone luis.test /var/lib/bind/luis.test.dns; sudo named-checkzone 56.168.192.in-addr.arpa /var/lib/bind/luis.test.rev" -- -q
+zone luis.test/IN: loaded serial 2026101601
+OK
+zone 56.168.192.in-addr.arpa/IN: loaded serial 2026101601
+OK
+```
+
+```console
+$ vagrant ssh -c "sudo journalctl -u named --no-pager | grep \"loaded serial\" | tail -n 2" -- -q
+Oct 16 15:28:25 debian named[6773]: zone localhost/IN: loaded serial 2
+Oct 16 15:28:25 debian named[6773]: zone luis.test/IN: loaded serial 2026101601
+```
+
+![comprobación de zonas](img/03-checkzone.png)
+
+### 4.4 Comprobación de las configuraciones
+
+Debe devolver `OK` en ambas zonas, y el log de `named` debe mostrar que cargó las dos:
+
+```console
+$ vagrant ssh -c "sudo named-checkzone luis.test /var/lib/bind/luis.test.dns; sudo named-checkzone 56.168.192.in-addr.arpa /var/lib/bind/luis.test.rev" -- -q
+zone luis.test/IN: loaded serial 2026101601
+OK
+zone 56.168.192.in-addr.arpa/IN: loaded serial 2026101601
+OK
+```
+
+```console
+$ vagrant ssh -c "sudo journalctl -u named --no-pager | grep \"loaded serial\" | tail -n 2" -- -q
+Oct 16 15:28:25 debian named[6773]: zone localhost/IN: loaded serial 2
+Oct 16 15:28:25 debian named[6773]: zone luis.test/IN: loaded serial 2026101601
+```
+
+![comprobación de zonas](img/03-checkzone.png)
+
+### 4.4 Comprobación de las configuraciones
+
+Debe devolver `OK` en ambas zonas, y el log de `named` debe mostrar que cargó las dos:
+
+```console
+$ vagrant ssh -c "sudo named-checkzone luis.test /var/lib/bind/luis.test.dns; sudo named-checkzone 56.168.192.in-addr.arpa /var/lib/bind/luis.test.rev" -- -q
+zone luis.test/IN: loaded serial 2026101601
+OK
+zone 56.168.192.in-addr.arpa/IN: loaded serial 2026101601
+OK
+```
+
+```console
+$ vagrant ssh -c "sudo journalctl -u named --no-pager | grep \"loaded serial\" | tail -n 2" -- -q
+Oct 16 15:28:25 debian named[6773]: zone localhost/IN: loaded serial 2
+Oct 16 15:28:25 debian named[6773]: zone luis.test/IN: loaded serial 2026101601
+```
+
+![comprobación de zonas](img/03-checkzone.png)
+
+### 4.4 Comprobación de las configuraciones
+
+Debe devolver `OK` en ambas zonas, y el log de `named` debe mostrar que cargó las dos:
+
+```console
+$ vagrant ssh -c "sudo named-checkzone luis.test /var/lib/bind/luis.test.dns; sudo named-checkzone 56.168.192.in-addr.arpa /var/lib/bind/luis.test.rev" -- -q
+zone luis.test/IN: loaded serial 2026101601
+OK
+zone 56.168.192.in-addr.arpa/IN: loaded serial 2026101601
+OK
+```
+
+```console
+$ vagrant ssh -c "sudo journalctl -u named --no-pager | grep \"loaded serial\" | tail -n 2" -- -q
+fOct 16 15:28:25 debian named[6773]: zone localhost/IN: loaded serial 2
+Oct 16 15:28:25 debian named[6773]: zone luis.test/IN: loaded serial 2026101601
+```
+
+![comprobación de zonas](img/03-checkzone.png)
