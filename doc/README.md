@@ -419,3 +419,37 @@ $ nslookup 192.168.56.33 192.168.56.33
 
 ```
 
+
+### 8.4 Comprobación de autoridad (flag `aa`)
+
+Se compara una consulta a nuestro dominio con otra a un dominio externo. Nos fijamos en la línea `;; flags:`:
+
+```console
+$ dig @192.168.56.33 debian.luis.test | grep "^;; flags"
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+```
+
+```console
+$ dig @192.168.56.33 www.google.es | grep "^;; flags"
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+```
+
+
+### 8.4 Comprobación de autoridad (flag `aa`)
+
+Se compara una consulta a nuestro dominio con otra a un dominio externo. Nos fijamos en la línea `;; flags:`:
+
+```console
+$ dig @192.168.56.33 debian.luis.test | grep "^;; flags"
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+```
+
+```console
+$ dig @192.168.56.33 www.google.es | grep "^;; flags"
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+```
+
+
+![flag aa](img/06-flag-aa.png)
+
+**Explicación:** `aa` (*Authoritative Answer*) aparece con `luis.test` porque nuestro servidor es el maestro de esa zona y responde con datos propios; con `www.google.es` no aparece porque la respuesta la obtiene (por recursión) de otros servidores y no es autoritativo de ese dominio.
