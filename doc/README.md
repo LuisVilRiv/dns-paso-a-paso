@@ -453,3 +453,35 @@ $ dig @192.168.56.33 www.google.es | grep "^;; flags"
 ![flag aa](img/06-flag-aa.png)
 
 **Explicación:** `aa` (*Authoritative Answer*) aparece con `luis.test` porque nuestro servidor es el maestro de esa zona y responde con datos propios; con `www.google.es` no aparece porque la respuesta la obtiene (por recursión) de otros servidores y no es autoritativo de ese dominio.
+
+## 9. Script de autocomprobación (`test.sh`)
+
+`test.sh` (raíz del repo, con permisos de ejecución) comprueba la sintaxis de la configuración y las resoluciones. Se lanza automáticamente en el **último** script de provisión (`config/99-test.sh`) y muestra su resultado al final de `vagrant up`.
+
+![test.sh](img/07-test-sh.png)
+
+Salida real:
+
+```console
+$ vagrant ssh -c "sudo /vagrant/test.sh" -- -q
+=== 1. Comprobación de sintaxis de ficheros ===
+[OK] named.conf.options
+zone luis.test/IN: loaded serial 2026101603
+OK
+[OK] Zona directa
+zone 56.168.192.in-addr.arpa/IN: loaded serial 2026101601
+OK
+[OK] Zona inversa
+=== 2. Comprobación de resolución ===
+-- A (debian.luis.test):
+192.168.56.33
+-- CNAME (web.luis.test):
+debian.luis.test.
+-- TXT (luis.test):
+"LuisVilRiv - Luis Villegas Rivera"
+-- PTR (192.168.56.33):
+debian.luis.test.
+=== 3. Autoridad (debe aparecer aa) ===
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+```
+
