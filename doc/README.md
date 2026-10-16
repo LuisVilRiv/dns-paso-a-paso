@@ -343,3 +343,23 @@ $ dig @192.168.56.33 -x 192.168.56.33
 ```
 
 ![dig](img/04-dig.png)
+
+## 7. Comprobación con nslookup
+
+```console
+$ nslookup debian.luis.test 192.168.56.33
+Server:		192.168.56.33
+Address:	192.168.56.33#53
+
+Name:	debian.luis.test
+Address: 192.168.56.33
+
+```
+
+```console
+$ nslookup 192.168.56.33 192.168.56.33
+33.56.168.192.in-addr.arpa	name = debian.luis.test.
+
+```
+
+![nslookup](img/05-nslookup.png)
