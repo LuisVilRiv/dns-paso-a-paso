@@ -5,3 +5,9 @@ zone "luis.test" {
     type master;
     file "/var/lib/bind/luis.test.dns";
 };
+
+// Zona de resolución INVERSA (IP -> nombre) de la red 192.168.56.0/24
+zone "56.168.192.in-addr.arpa" {
+    type master;
+    file "/var/lib/bind/luis.test.rev";
+};

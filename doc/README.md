@@ -160,3 +160,9 @@ files/named.conf.local  ->  /etc/bind/named.conf.local
 files/luis.test.dns     ->  /var/lib/bind/luis.test.dns
 ```
 
+
+### 4.3 Zona inversa
+
+Segunda zona en `named.conf.local` (`56.168.192.in-addr.arpa`, el tercer byte de la red va en el nombre) y su fichero `files/luis.test.rev`.
+El registro `33 IN PTR debian.luis.test.` usa el **último octeto** de la IP del servidor.
+
