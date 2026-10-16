@@ -246,3 +246,42 @@ Oct 16 15:28:25 debian named[6773]: zone luis.test/IN: loaded serial 2026101601
 ```
 
 ![comprobación de zonas](img/03-checkzone.png)
+
+## 5. Configuración del cliente
+
+El cliente es el propio Fedora. Con `systemd-resolved` se asocia el servidor DNS a la interfaz *host-only* de VirtualBox, solo para nuestras zonas (el prefijo `~` es *routing domain*):
+
+```bash
+sudo resolvectl dns vboxnet0 192.168.56.33
+sudo resolvectl domain vboxnet0 '~luis.test' '~56.168.192.in-addr.arpa'
+```
+
+`/etc/hosts` está limpio, así que la resolución viene realmente del servidor DNS:
+
+```console
+$ grep -v "^#" /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+```
+
+```console
+$ resolvectl status vboxnet0 | head -n 12
+Link 3 (vboxnet0)
+    Current Scopes: DNS LLMNR/IPv4 LLMNR/IPv6
+         Protocols: -DefaultRoute LLMNR=resolve -mDNS -DNSOverTLS
+                    DNSSEC=no/unsupported
+Current DNS Server: 192.168.56.33
+       DNS Servers: 192.168.56.33
+        DNS Domain: ~luis.test ~56.168.192.in-addr.arpa
+     Default Route: no
+```
+
+```console
+$ resolvectl query debian.luis.test
+debian.luis.test: 192.168.56.33                             -- link: vboxnet0
+
+-- Information acquired via protocol DNS in 526us.
+-- Data is authenticated: no; Data was acquired via local or encrypted transport: no
+-- Data from: cache
+```
+
