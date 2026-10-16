@@ -403,3 +403,19 @@ luis.test	text = "LuisVilRiv - Luis Villegas Rivera"
 
 ```
 
+
+### 8.3 Resolución inversa (PTR)
+
+La IP del servidor resuelve a su FQDN gracias al registro `33 IN PTR debian.luis.test.` de la zona inversa:
+
+```console
+$ dig @192.168.56.33 -x 192.168.56.33 +short
+debian.luis.test.
+```
+
+```console
+$ nslookup 192.168.56.33 192.168.56.33
+33.56.168.192.in-addr.arpa	name = debian.luis.test.
+
+```
+
