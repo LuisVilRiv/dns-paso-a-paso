@@ -76,3 +76,21 @@ ii  bind9utils     1:9.18.49-1~deb12u2 all          Transitional package for bin
 active
 ```
 
+
+## 4. Configuración del servidor
+
+### 4.0 Solo IPv4 (`/etc/default/named`)
+
+Fichero `files/named`. Solo usamos IPv4, así que arrancamos `named` con `-4`.
+Nota: el enunciado escribe `OPTIONS = "..."` con espacios, pero es un fichero de shell y no los admite; se escribe `OPTIONS="-u bind -4"`.
+
+```console
+$ vagrant ssh -c "cat /etc/default/named; ps -eo args | grep [n]amed" -- -q
+# /etc/default/named - Práctica DNS (Luis Villegas Rivera)
+RESOLVCONF=no
+# -u bind: ejecutar como usuario "bind" | -4: usar solo IPv4
+OPTIONS="-u bind -4"
+/usr/sbin/named -f -u bind -4
+bash -l -c cat /etc/default/named; ps -eo args | grep [n]amed
+```
+

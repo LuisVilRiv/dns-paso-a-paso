@@ -1,0 +1,4 @@
+# /etc/default/named - Práctica DNS (Luis Villegas Rivera)
+RESOLVCONF=no
+# -u bind: ejecutar como usuario "bind" | -4: usar solo IPv4
+OPTIONS="-u bind -4"
